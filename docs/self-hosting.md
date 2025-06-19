@@ -29,7 +29,7 @@ docker run -d \
   -e FANART_API=your_fanart_key \
   -e TMDB_API=your_tmdb_key \
   -e HOST_NAME=http://your_domain:1337 \
-  mrcanelas/tmdb-addon:latest
+  matrix37/tmdb-addon:latest
 ```
 
 ### Using Docker Compose
@@ -40,7 +40,7 @@ Create a `docker-compose.yml` file:
 version: '3'
 services:
   tmdb-addon:
-    image: mrcanelas/tmdb-addon:latest
+    image: matrix37/tmdb-addon:latest
     container_name: tmdb-addon
     ports:
       - "1337:1337"
