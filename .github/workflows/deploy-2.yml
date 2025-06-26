@@ -44,5 +44,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/tmdb-addon-redis:${{ env.TAG }}
-            ghcr.io/${{ github.repository_owner }}/tmdb-addon-redis:latest
+            ghcr.io/${{ github.repository_owner }}/tmdb-addon-redis-2:${{ env.TAG }}
+            ghcr.io/${{ github.repository_owner }}/tmdb-addon-redis-2:latest
