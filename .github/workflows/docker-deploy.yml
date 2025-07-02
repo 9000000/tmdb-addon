@@ -57,7 +57,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ secrets.GHCR_USERNAME }}/tmdb-addon:${{ env.TAG }}
-            ghcr.io/${{ secrets.GHCR_USERNAME }}/tmdb-addon:latest
+            ghcr.io/${{ github.repository_owner }}/tmdb-addon:${{ env.TAG }}
+            ghcr.io/${{ github.repository_owner }}/tmdb-addon:latest
             docker.io/${{ secrets.DOCKERHUB_USERNAME }}/tmdb-addon:${{ env.TAG }}
             docker.io/${{ secrets.DOCKERHUB_USERNAME }}/tmdb-addon:latest
