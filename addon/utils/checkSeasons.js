@@ -6,10 +6,12 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_REPO = process.env.GITHUB_REPO; // Ex: 'mrcanelas/tmdb-addon'
 
 async function getLastChecked(tmdbId) {
+  if (!cache) return null;
   return await cache.get(`lastChecked:${tmdbId}`);
 }
 
 async function setLastChecked(tmdbId, data) {
+  if (!cache) return;
   await cache.set(`lastChecked:${tmdbId}`, data, { ttl: 365 * 24 * 60 * 60 });
 }
 
@@ -24,7 +26,7 @@ async function openGithubIssue(title, body, labels = []) {
 
 async function issueExistsOnGithub(title) {
   if (!GITHUB_TOKEN || !GITHUB_REPO) return false;
-  const url = `https://api.github.com/repos/${GITHUB_REPO}/issues?state=open&labels=season-mismatch&per_page=100`;
+  const url = `https://api.github.com/repos/${GITHUB_REPO}/issues?labels=season-mismatch&per_page=100`;
   try {
     const resp = await axios.get(url, {
       headers: { Authorization: `token ${GITHUB_TOKEN}` }
@@ -37,6 +39,12 @@ async function issueExistsOnGithub(title) {
 }
 
 async function checkSeasonsAndReport(tmdbId, imdbId, resp, name) {
+  // Se não há cache disponível, pula a verificação
+  if (!cache) {
+    console.log("Cache not available, skipping season check");
+    return;
+  }
+
   const cacheData = await getLastChecked(tmdbId);
   const now = new Date();
   const lastChecked = cacheData && cacheData.lastChecked ? new Date(cacheData.lastChecked) : null;
